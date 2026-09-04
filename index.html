@@ -1,10 +1,11 @@
 
+
 <!DOCTYPE html>
 <html lang="hu">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>SOMA CMA - V4</title>
+<title>SOMA CMA - V5</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:system-ui,sans-serif;background:#f8fafc}
@@ -51,7 +52,7 @@ body.haz .haz-only{display:block}body.haz .lakas-only{display:none}
 <div id="login" class="login">
   <div class="card">
     <div style="width:56px;height:56px;background:linear-gradient(135deg,#FF6B00,#ff8c33);border-radius:16px;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:900;font-size:22px;margin-bottom:14px">S</div>
-    <h1 style="font-size:22px">SOMA Ingatlan – CMA V4</h1>
+    <h1 style="font-size:22px">SOMA Ingatlan – CMA V5</h1>
     <div style="color:#64748b;font-size:13px;margin:6px 0 20px">Belső piaci összehasonlító • biztonságos</div>
     <input id="code" class="input" placeholder="Kódod" type="password" autocomplete="off">
     <button class="btn" onclick="doLogin()">Belépés →</button>
@@ -62,7 +63,7 @@ body.haz .haz-only{display:block}body.haz .lakas-only{display:none}
 <div id="main" class="main">
   <div class="top">
     <div style="display:flex;align-items:center;gap:10px">
-      <span class="badge">● Belépve • SOMA CMA V4</span>
+      <span class="badge">● Belépve • SOMA CMA V5</span>
       <span id="typeBadge" style="font-size:11px;padding:4px 8px;border-radius:999px;background:#e0f2fe;color:#075985;border:1px solid #bae6fd">Lakás mód</span>
       <span style="font-size:11px;color:#64748b" id="dateNow"></span>
     </div>
@@ -90,13 +91,12 @@ body.haz .haz-only{display:block}body.haz .lakas-only{display:none}
         <div class="grid2">
           <div><label class="lab">Alapterület m² *</label><input id="area" type="number" class="inp" value="" placeholder="68" oninput="calc()"></div>
           <div class="haz-only"><label class="lab">Telek m² *</label><input id="plot" type="number" class="inp" value="" placeholder="500" oninput="calc()"></div>
-          <div class="lakas-only"><label class="lab">Szoba</label><input id="rooms" type="number" class="inp" value="" placeholder="3" oninput="calc()"></div>
+          <div><label class="lab">Szobák száma (0,5 is lehet)</label><input id="rooms" type="number" min="0" step="0.5" class="inp" value="" placeholder="pl. 2,5" oninput="calc()"></div>
         </div>
 
         <div class="grid2">
           <div><label class="lab">Állapot</label><select id="cond" class="inp" onchange="calc()"><option value="10">Új / Újszerű</option><option value="0" selected>Jó</option><option value="-7">Közepes</option><option value="-15">Felújítandó</option><option value="-22">Rossz</option></select></div>
           <div class="haz-only"><label class="lab">Építési mód</label><select id="build" class="inp" onchange="calc()"><option value="0">Tégla</option><option value="1">Ytong</option><option value="-8">Vegyes</option><option value="-3">Könnyűszerkezetes</option></select></div>
-          <div class="lakas-only"><label class="lab">Szoba</label><input id="rooms2" type="number" class="inp" value="" placeholder="3" oninput="syncRooms()"></div>
         </div>
 
         <!-- LAKÁS MEZŐK -->
@@ -164,8 +164,6 @@ function renderAdmin(){
 }
 function toggle(c){if(disabled.includes(c)) disabled=disabled.filter(x=>x!==c); else disabled.push(c); localStorage.setItem("soma_disabled",JSON.stringify(disabled)); renderAdmin();}
 function addCode(){const v=document.getElementById("newCode").value.trim().toUpperCase();if(!v)return; extra.push(v);localStorage.setItem("soma_extra",JSON.stringify(extra));document.getElementById("newCode").value="";renderAdmin();}
-function syncRooms(){const a=document.getElementById("rooms");const b=document.getElementById("rooms2");if(b&&a){a.value=b.value}}
-
 let comps=[]; // ÜRESEN INDUL!
 let openDetails={};
 
@@ -179,11 +177,11 @@ function switchType(){
 }
 
 function addComp(type){
-  comps.push({type,addr:"",price:"",m2:"",cond:0,floor:"1. emelet",lift:1,balc:0,heat:0,plot:"",garage:0,year:"",build:0,manual:0,manualNote:""});
+  comps.push({type,addr:"",price:"",m2:"",rooms:"",cond:0,floor:"1. emelet",lift:1,balc:0,heat:0,plot:"",garage:0,year:"",build:0,manual:0,manualNote:""});
   render();calc();
 }
 function clearComps(){if(confirm("Törlöd az összes összehasonlítót?")){comps=[];openDetails={};render();calc()}}
-function clearAll(){if(confirm("Minden adat törlése?")){document.getElementById("addr").value="";document.getElementById("area").value="";document.getElementById("plot").value="";document.getElementById("rooms").value="";document.getElementById("rooms2").value="";comps=[];render();calc()}}
+function clearAll(){if(confirm("Minden adat törlése?")){document.getElementById("addr").value="";document.getElementById("area").value="";document.getElementById("plot").value="";document.getElementById("rooms").value="";comps=[];render();calc()}}
 
 function render(){
   const el=document.getElementById("comps");
@@ -195,10 +193,11 @@ function render(){
     const isOpen=openDetails[i];
     const isHaz=document.getElementById("ptype").value==="haz";
     return `<div class="comp ${c.type}"><div style="display:flex;justify-content:space-between;align-items:center"><span style="font-weight:700;font-size:13px" id="title-${i}">${i+1}. ${titleText}</span><div style="display:flex;gap:6px;align-items:center"><span class="tag ${c.type}">${isSold?"ELADOTT":"AKTÍV -5%"}</span><button onclick="comps.splice(${i},1);render();calc()" style="padding:2px 6px;border:1px solid #e2e8f0;border-radius:6px;background:#fff;cursor:pointer;font-size:11px">✕</button></div></div>
-    <div style="display:grid;grid-template-columns:2fr .7fr .5fr .7fr;gap:6px;margin-top:8px">
+    <div style="display:grid;grid-template-columns:2fr .7fr .5fr .55fr .7fr;gap:6px;margin-top:8px">
       <div><span class="small">Cím *</span><input class="inp" value="${c.addr}" placeholder="Győr, utca" oninput="comps[${i}].addr=this.value;document.getElementById('title-${i}').textContent='${i+1}. '+(this.value||'${isSold?'Eladott':'Aktív'} #${i+1} – új');calc()"></div>
       <div><span class="small">Ár M Ft *</span><input type="number" class="inp" value="${c.price}" placeholder="52.5" oninput="comps[${i}].price=this.value;calc()"></div>
       <div><span class="small">m² *</span><input type="number" class="inp" value="${c.m2}" placeholder="65" oninput="comps[${i}].m2=this.value;calc()"></div>
+      <div><span class="small">Szoba</span><input type="number" min="0" step="0.5" class="inp" value="${c.rooms||""}" placeholder="2,5" oninput="comps[${i}].rooms=this.value;calc()"></div>
       <div><span class="small">Állapot</span><select class="inp" onchange="comps[${i}].cond=parseFloat(this.value);calc()"><option value="10" ${c.cond==10?"selected":""}>Új</option><option value="0" ${c.cond==0?"selected":""}>Jó</option><option value="-7" ${c.cond==-7?"selected":""}>Közepes</option><option value="-15" ${c.cond==-15?"selected":""}>Felújítandó</option><option value="-22" ${c.cond==-22?"selected":""}>Rossz</option></select></div>
     </div>
     ${isHaz?`<div style="display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin-top:6px"><div><span class="small">Telek m²</span><input type="number" class="inp" value="${c.plot}" placeholder="500" oninput="comps[${i}].plot=this.value;calc()"></div><div><span class="small">Garázs</span><select class="inp" onchange="comps[${i}].garage=parseFloat(this.value);calc()"><option value="0" ${c.garage==0?"selected":""}>Nincs</option><option value="4" ${c.garage==4?"selected":""}>1 állás</option><option value="7" ${c.garage==7?"selected":""}>2 állás</option></select></div><div><span class="small">Év / korszerűsítés</span><input type="number" class="inp" value="${c.year}" placeholder="2005" oninput="comps[${i}].year=this.value;calc()"></div><div><span class="small">Építési mód</span><select class="inp" onchange="comps[${i}].build=parseFloat(this.value);calc()"><option value="0" ${c.build==0?"selected":""}>Tégla</option><option value="1" ${c.build==1?"selected":""}>Ytong</option><option value="-8" ${c.build==-8?"selected":""}>Vegyes</option><option value="-3" ${c.build==-3?"selected":""}>Könnyűszerk.</option></select></div><div><span class="small">Fűtés</span><select class="inp" onchange="comps[${i}].heat=parseFloat(this.value);calc()"><option value="0" ${c.heat==0?"selected":""}>Gáz cirkó</option><option value="5" ${c.heat==5?"selected":""}>Hőszivattyú</option><option value="-4" ${c.heat==-4?"selected":""}>Vegyes</option><option value="-6" ${c.heat==-6?"selected":""}>Elavult</option></select></div></div>`:`<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-top:6px"><div><span class="small">Emelet</span><select class="inp" onchange="comps[${i}].floor=this.value;calc()"><option ${c.floor=="Földszint"?"selected":""}>Földszint</option><option ${c.floor=="1. emelet"?"selected":""}>1. emelet</option><option ${c.floor=="2. emelet"?"selected":""}>2. emelet</option><option ${c.floor=="3. emelet"?"selected":""}>3. emelet</option><option ${c.floor=="4. emelet+"?"selected":""}>4. emelet+</option></select></div><div><span class="small">Lift</span><select class="inp" onchange="comps[${i}].lift=parseFloat(this.value);calc()"><option value="1" ${c.lift==1?"selected":""}>Van</option><option value="0" ${c.lift==0?"selected":""}>Nincs</option></select></div><div><span class="small">Erkély</span><select class="inp" onchange="comps[${i}].balc=parseFloat(this.value);calc()"><option value="0" ${c.balc==0?"selected":""}>Nincs</option><option value="3" ${c.balc==3?"selected":""}>Erkély</option><option value="6" ${c.balc==6?"selected":""}>Nagy terasz</option></select></div><div><span class="small">Fűtés</span><select class="inp" onchange="comps[${i}].heat=parseFloat(this.value);calc()"><option value="0" ${c.heat==0?"selected":""}>Gáz cirkó</option><option value="1" ${c.heat==1?"selected":""}>Távhő</option><option value="4" ${c.heat==4?"selected":""}>Hőszivattyú</option><option value="-5" ${c.heat==-5?"selected":""}>Konvektor</option></select></div></div>`}
@@ -219,11 +218,19 @@ const balconyLabel=v=>({0:"Nincs",3:"Erkély",6:"Nagy terasz"}[v]||"Nincs");
 const garageLabel=v=>({0:"Nincs",4:"1 állás",7:"2 állás"}[v]||"Nincs");
 const buildLabel=v=>({0:"Tégla",1:"Ytong",[-8]:"Vegyes",[-3]:"Könnyűszerkezetes"}[v]||"Tégla");
 const heatLabel=(v,isHouse)=>isHouse?({0:"Gáz cirkó",5:"Hőszivattyú",[-4]:"Vegyes / szilárd",[-6]:"Elavult egyedi"}[v]||"Gáz cirkó"):({0:"Gáz cirkó",1:"Távhő",4:"Hőszivattyú",[-5]:"Konvektor / egyedi"}[v]||"Gáz cirkó");
-function floorLiftScore(floor,lift){
-  if(floor==="Földszint") return -3;
-  if(floor==="1. emelet"||floor==="2. emelet") return 2;
-  if(floor==="3. emelet") return lift?2:-3;
-  return lift?1:-7;
+function floorScore(floor){
+  if(floor==="Földszint")return -2;
+  if(floor==="1. emelet")return 1;
+  if(floor==="2. emelet")return 0;
+  if(floor==="3. emelet")return -1;
+  return -3;
+}
+function liftScore(floor,lift){
+  if(!lift)return 0;
+  if(floor==="Földszint"||floor==="1. emelet")return 0;
+  if(floor==="2. emelet")return 1;
+  if(floor==="3. emelet")return 3;
+  return 5;
 }
 function yearScore(year){
   if(!year) return null;
@@ -234,7 +241,7 @@ function calc(){
   const area=num("area");
   const subjCond=num("cond");
   const isHaz=document.getElementById("ptype").value==="haz";
-  const subjPlot=num("plot"), subjGarage=num("garage"), subjLift=num("lift"), subjBalc=num("balc");
+  const subjPlot=num("plot"), subjGarage=num("garage"), subjLift=num("lift"), subjBalc=num("balc"), subjRooms=num("rooms");
   const subjHeat=num(isHaz?"heatH":"heat"), subjBuild=num("build"), subjYear=num("year");
 
   if(area<=0){document.getElementById("outPrice").textContent="Add meg az alapterületet";document.getElementById("outM2").textContent="";document.getElementById("outRange").textContent="";document.getElementById("stats").textContent="";return}
@@ -250,9 +257,13 @@ function calc(){
     addRow("Állapot",conditionLabel(parseFloat(c.cond)||0),conditionLabel(subjCond),subjCond-(parseFloat(c.cond)||0));
     const areaRate=isHaz?0.15:0.25;
     addRow("Alapterület",compArea+" m²",area+" m²",clamp((compArea-area)*areaRate,-8,8));
+    const compRooms=parseFloat(c.rooms);
+    if(subjRooms>0&&compRooms>0)addRow("Szobaszám",compRooms,subjRooms,clamp((subjRooms-compRooms)*1.5,-3,3));
     if(!isHaz){
       const compLift=parseFloat(c.lift)===1?1:0;
-      addRow("Emelet és lift",`${c.floor}, ${compLift?"liftes":"lift nélkül"}`,`${document.getElementById("floor").value}, ${subjLift?"liftes":"lift nélkül"}`,floorLiftScore(document.getElementById("floor").value,subjLift)-floorLiftScore(c.floor,compLift));
+      const subjFloor=document.getElementById("floor").value;
+      addRow("Emelet",c.floor,subjFloor,floorScore(subjFloor)-floorScore(c.floor));
+      addRow("Lift",compLift?"Van":"Nincs",subjLift?"Van":"Nincs",liftScore(subjFloor,subjLift)-liftScore(c.floor,compLift));
       addRow("Erkély / terasz",balconyLabel(parseFloat(c.balc)||0),balconyLabel(subjBalc),subjBalc-(parseFloat(c.balc)||0));
       addRow("Fűtés",heatLabel(parseFloat(c.heat)||0,false),heatLabel(subjHeat,false),subjHeat-(parseFloat(c.heat)||0));
     } else {
