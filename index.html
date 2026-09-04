@@ -7,101 +7,105 @@
 <title>SOMA CMA - Piaci Összehasonlító</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Inter,sans-serif;background:#0f172a;color:#0f172a}
+body{font-family:system-ui,sans-serif;background:#f8fafc}
 .login{display:flex;min-height:100vh;align-items:center;justify-content:center;padding:24px;background:radial-gradient(800px 600px at 20% 20%,#1e3a5f 0%,#0f172a 60%)}
 .card{background:#fff;border-radius:24px;padding:36px;max-width:460px;width:100%;box-shadow:0 25px 80px rgba(0,0,0,.4)}
 .logo{width:56px;height:56px;background:linear-gradient(135deg,#FF6B00,#ff8c33);border-radius:16px;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:900;font-size:22px;margin-bottom:14px}
-h1{font-size:24px;letter-spacing:-.5px}
-.sub{color:#64748b;font-size:14px;margin:6px 0 22px}
 .input{width:100%;padding:14px 16px;border:2px solid #e2e8f0;border-radius:12px;font-size:16px;outline:none}
 .input:focus{border-color:#FF6B00}
-.btn{width:100%;margin-top:12px;padding:14px;background:#FF6B00;color:#fff;border:0;border-radius:12px;font-weight:800;cursor:pointer;font-size:15px;letter-spacing:.3px}
+.btn{width:100%;margin-top:12px;padding:14px;background:#FF6B00;color:#fff;border:0;border-radius:12px;font-weight:800;cursor:pointer;font-size:15px}
 .btn:hover{background:#e05e00}
 .err{margin-top:12px;padding:10px 12px;background:#fee2e2;color:#991b1b;border-radius:10px;font-size:13px;display:none}
-.hint{margin-top:18px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:12px;padding:12px;font-size:12px;color:#475569;line-height:1.6}
-.main{display:none;background:#f8fafc;min-height:100vh}
+.main{display:none;min-height:100vh;background:#f8fafc}
 .main.on{display:block}
-.top{background:#fff;border-bottom:1px solid #e2e8f0;padding:12px 20px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:10}
-.badge{background:#0f172a;color:#fff;padding:6px 12px;border-radius:999px;font-size:12px;font-weight:700}
-.wrap{max-width:1400px;margin:0 auto;padding:20px;display:grid;grid-template-columns:360px 1fr;gap:20px}
-@media(max-width:1000px){.wrap{grid-template-columns:1fr}}
-.panel{background:#fff;border-radius:16px;padding:18px;box-shadow:0 1px 3px rgba(0,0,0,.06);border:1px solid #eef2f7}
-.panel h3{font-size:13px;letter-spacing:.6px;text-transform:uppercase;color:#0f172a;margin-bottom:12px}
-.lab{font-size:11px;color:#64748b;font-weight:700;letter-spacing:.5px;text-transform:uppercase;margin:10px 0 4px;display:block}
-.inp,select.inp{width:100%;padding:10px 12px;border:1.5px solid #e2e8f0;border-radius:10px;font-size:14px;background:#fff}
-.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.result{background:linear-gradient(135deg,#1B2A4A 0%,#23406f 100%);color:#fff;border-radius:16px;padding:18px;margin-top:14px}
-.result .k{font-size:11px;opacity:.7;letter-spacing:.5px}
+.top{background:#fff;border-bottom:1px solid #e2e8f0;padding:10px 16px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:20}
+.badge{background:#0f172a;color:#fff;padding:6px 12px;border-radius:999px;font-size:12px;font-weight:700;letter-spacing:.3px}
+.wrap{max-width:1450px;margin:0 auto;padding:16px;display:grid;grid-template-columns:380px 1fr;gap:16px}
+@media(max-width:1050px){.wrap{grid-template-columns:1fr}}
+.panel{background:#fff;border-radius:16px;padding:16px;box-shadow:0 1px 3px rgba(0,0,0,.06);border:1px solid #eef2f7;margin-bottom:16px}
+.panel h3{font-size:12px;letter-spacing:.6px;text-transform:uppercase;margin-bottom:12px}
+.lab{font-size:10px;color:#64748b;font-weight:700;letter-spacing:.5px;text-transform:uppercase;margin:10px 0 4px;display:block}
+.inp,select.inp{width:100%;padding:9px 11px;border:1.5px solid #e2e8f0;border-radius:9px;font-size:13px;background:#fff}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.result{background:linear-gradient(135deg,#1B2A4A 0%,#23406f 100%);color:#fff;border-radius:16px;padding:16px;margin-top:12px}
 .result .v{font-size:26px;font-weight:900;margin:6px 0}
-.result .s{font-size:12px;opacity:.75}
-.comp{border:1px solid #e2e8f0;border-radius:12px;padding:12px;margin-bottom:12px;background:#fff}
+.comp{border:1px solid #e2e8f0;border-radius:12px;padding:12px;margin-bottom:10px;background:#fff}
 .comp.sold{border-left:4px solid #16a34a}
 .comp.active{border-left:4px solid #2563eb}
-.comp-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
 .tag{font-size:10px;font-weight:800;padding:3px 7px;border-radius:999px;color:#fff}
-.tag.sold{background:#16a34a}
-.tag.active{background:#2563eb}
+.tag.sold{background:#16a34a}.tag.active{background:#2563eb}
+.kor-table{width:100%;border-collapse:collapse;margin-top:8px;font-size:11px}
+.kor-table th{color:#64748b;font-size:10px;text-align:left;padding:4px 6px;border-bottom:1px solid #e2e8f0}
+.kor-table td{padding:5px 6px;border-bottom:1px solid #f1f5f9}
+.kor-table .plus{color:#16a34a;font-weight:700}
+.kor-table .minus{color:#dc2626;font-weight:700}
 .small{font-size:11px;color:#64748b}
-.kor{font-size:11px;background:#f1f5f9;border-radius:8px;padding:8px;margin-top:8px;line-height:1.5}
-.admin{margin-bottom:20px;border:2px dashed #FF6B00}
-table{width:100%;border-collapse:collapse}
-th{font-size:11px;color:#64748b;text-align:left;padding:8px}
-td{padding:8px;border-top:1px solid #f1f5f9;font-size:13px}
-.tbtn{padding:5px 10px;border-radius:8px;border:0;cursor:pointer;font-size:12px;font-weight:700}
-.tbtn.off{background:#fee2e2;color:#991b1b}
-.tbtn.on{background:#dcfce7;color:#166534}
+.detail-btn{margin-top:8px;padding:6px 10px;border:1px solid #e2e8f0;border-radius:8px;background:#f8fafc;font-size:11px;cursor:pointer;font-weight:600}
+.detail-btn:hover{background:#eef2f7}
+.sum-row{font-weight:800;background:#f8fafc}
+.admin{border:2px dashed #FF6B00}
+table.admin-t{width:100%;border-collapse:collapse}
+table.admin-t th{font-size:10px;color:#64748b;text-align:left;padding:6px}
+table.admin-t td{padding:6px;border-top:1px solid #f1f5f9;font-size:12px}
+.tbtn{padding:4px 8px;border-radius:6px;border:0;cursor:pointer;font-size:11px;font-weight:700}
+.tbtn.off{background:#fee2e2;color:#991b1b}.tbtn.on{background:#dcfce7;color:#166534}
 </style>
 </head>
 <body>
 <div id="login" class="login">
   <div class="card">
     <div class="logo">S</div>
-    <h1>SOMA Ingatlan – CMA</h1>
-    <div class="sub">Belső piaci összehasonlító – egyéni kódos belépés</div>
-    <input id="code" class="input" placeholder="Kódod: pl. SOMA-JANOS" autocomplete="off">
+    <h1 style="font-size:22px">SOMA Ingatlan – CMA</h1>
+    <div style="color:#64748b;font-size:13px;margin:6px 0 20px">Belső piaci összehasonlító</div>
+    <input id="code" class="input" placeholder="Kódod" type="password" autocomplete="off">
     <button class="btn" onclick="doLogin()">Belépés →</button>
     <div id="err" class="err"></div>
-    <div class="hint"><b>Teszt kódok:</b><br>SOMA-JANOS, SOMA-ANNA, SOMA-PETER, SOMA-KATA<br><b>Admin:</b> SOMAADMIN2025 – itt tudsz tiltani ha elmegy valaki<br><br>GitHub: SomaPlatform/cma – Pages deploy: zöld ✅</div>
+    <div style="margin-top:16px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:12px;padding:10px;font-size:11px;color:#475569">Admin: SOMAADMIN2025</div>
   </div>
 </div>
 
 <div id="main" class="main">
   <div class="top">
-    <div><span id="who" class="badge">SOMA-JANOS</span> <span style="font-size:12px;color:#64748b;margin-left:10px">Piaci összehasonlító kalkulátor • FULL • GitHub Pages</span></div>
-    <button onclick="logout()" style="padding:7px 12px;border:1px solid #e2e8f0;border-radius:8px;background:#fff;cursor:pointer">Kilépés</button>
+    <div style="display:flex;align-items:center;gap:10px">
+      <span class="badge">● Belépve • SOMA CMA</span>
+      <span id="adminHint" style="display:none;font-size:11px;background:#fff7ed;color:#c2410c;padding:4px 8px;border-radius:999px;border:1px solid #fed7aa">Admin mód</span>
+      <span style="font-size:11px;color:#64748b" id="dateNow"></span>
+    </div>
+    <div style="display:flex;gap:8px"><button onclick="toggleAdmin()" id="adminBtn" style="display:none;padding:6px 10px;border:1px solid #fed7aa;border-radius:8px;background:#fff7ed;cursor:pointer;font-size:11px">👥 Kódok</button><button onclick="logout()" style="padding:6px 10px;border:1px solid #e2e8f0;border-radius:8px;background:#fff;cursor:pointer;font-size:11px">Kilépés</button></div>
   </div>
+
   <div class="wrap">
     <div>
       <div id="adminBox" class="panel admin" style="display:none">
-        <h3>🔧 Admin – Hozzáférés kezelés (SOMAADMIN2025)</h3>
-        <div class="small">Ha egy értékesítő elmegy, katt: Tiltás. A tiltás azonnal él (localStorage).</div>
-        <table id="adminTable" style="margin-top:10px"></table>
-        <div style="display:flex;gap:8px;margin-top:12px"><input id="newCode" class="inp" placeholder="SOMA-ÚJ NÉV" style="flex:1"><button class="btn" style="width:auto;margin:0;padding:10px 14px" onclick="addCode()">Hozzáadás</button></div>
+        <h3>🔧 Hozzáférések – tiltás ha elmegy valaki</h3>
+        <div class="small" style="margin-bottom:8px">A kód nem látszik a főoldalon biztonsági okból. Itt látod mindet.</div>
+        <table class="admin-t" id="adminTable"></table>
+        <div style="display:flex;gap:8px;margin-top:12px"><input id="newCode" class="inp" placeholder="SOMA-ÚJ NÉV" style="flex:1"><button class="btn" style="width:auto;margin:0;padding:9px 12px" onclick="addCode()">Hozzáadás</button></div>
       </div>
 
       <div class="panel">
         <h3>🏠 Tárgyi ingatlan</h3>
-        <label class="lab">Típus</label>
-        <select id="ptype" class="inp" onchange="render()"><option value="lakas">Lakás</option><option value="haz">Családi ház</option></select>
+        <label class="lab">Típus</label><select id="ptype" class="inp" onchange="calc()"><option value="lakas">Lakás</option><option value="haz">Családi ház</option></select>
         <label class="lab">Cím</label><input id="addr" class="inp" value="Győr, Ady Endre u. 12.">
         <div class="grid2"><div><label class="lab">Alapterület m²</label><input id="area" type="number" class="inp" value="68" oninput="calc()"></div><div><label class="lab">Telek m² (ház)</label><input id="plot" type="number" class="inp" value="0" oninput="calc()"></div></div>
         <div class="grid2"><div><label class="lab">Szoba</label><input id="rooms" type="number" class="inp" value="3" oninput="calc()"></div><div><label class="lab">Állapot</label><select id="cond" class="inp" onchange="calc()"><option value="1.15">Új / Újszerű</option><option value="1" selected>Jó</option><option value="0.92">Közepes</option><option value="0.82">Felújítandó</option><option value="0.70">Rossz</option></select></div></div>
         <div class="grid2"><div><label class="lab">Emelet</label><select id="floor" class="inp" onchange="calc()"><option>Földszint</option><option selected>1. emelet</option><option>2. emelet</option><option>3. emelet</option><option>4. emelet+</option></select></div><div><label class="lab">Lift</label><select id="lift" class="inp" onchange="calc()"><option value="1">Van</option><option value="0.95">Nincs (1-2 em)</option><option value="0.90">Nincs (3 em+)</option></select></div></div>
         <div class="grid2"><div><label class="lab">Fűtés</label><select id="heat" class="inp" onchange="calc()"><option>Gáz cirkó</option><option>Távhő</option><option>Hőszivattyú</option></select></div><div><label class="lab">Erkély / Terasz</label><select id="balc" class="inp" onchange="calc()"><option value="0">Nincs</option><option value="1.02">Erkély</option><option value="1.05">Nagy terasz</option></select></div></div>
-
         <div class="result">
-          <div class="k">BECSÜLT PIACI ÉRTÉK • SÚLYOZOTT</div>
+          <div style="font-size:10px;opacity:.7;letter-spacing:.5px">BECSÜLT PIACI ÉRTÉK • SÚLYOZOTT</div>
           <div id="outPrice" class="v">— Ft</div>
-          <div id="outM2" class="s">— Ft/m²</div>
-          <div id="outRange" class="s" style="margin-top:8px;background:rgba(255,255,255,.15);padding:8px;border-radius:8px">Hirdetési sáv: —</div>
+          <div id="outM2" class="small" style="color:#cbd5e1">— Ft/m²</div>
+          <div id="outRange" class="small" style="margin-top:8px;background:rgba(255,255,255,.15);padding:8px;border-radius:8px;color:#e2e8f0">Hirdetési sáv: —</div>
         </div>
-        <div style="margin-top:10px" class="small" id="stats"></div>
+        <div id="stats" class="small" style="margin-top:8px"></div>
       </div>
     </div>
 
-    <div class="panel">
-      <h3>📊 Összehasonlítók – 10 db (5 Eladott zöld • 5 Aktív kék -5% alku)</h3>
-      <div id="comps"></div>
+    <div>
+      <div class="panel">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px"><h3 style="margin:0">📊 Összehasonlítók – 10 DB</h3><span class="small">5 Eladott (1.2× súly) • 5 Aktív (0.8× + -5% alku)</span></div>
+        <div id="comps"></div>
+      </div>
     </div>
   </div>
 </div>
@@ -116,16 +120,18 @@ function doLogin(){
   const er=document.getElementById("err");
   if(!c){er.textContent="Add meg a kódod!";er.style.display="block";return}
   if(disabled.includes(c)){er.textContent="Ez a kód le van tiltva!";er.style.display="block";return}
-  if(all().includes(c)){localStorage.setItem("soma_user",c);openMain(c)}else{er.textContent="Hibás kód! Próbáld: SOMA-JANOS vagy SOMAADMIN2025";er.style.display="block"}
+  if(all().includes(c)){localStorage.setItem("soma_user",c);localStorage.setItem("soma_login_time",Date.now());openMain(c)}else{er.textContent="Hibás kód!";er.style.display="block"}
 }
 function openMain(code){
   document.getElementById("login").style.display="none";
   document.getElementById("main").classList.add("on");
-  document.getElementById("who").textContent=code;
-  if(code==="SOMAADMIN2025"){document.getElementById("adminBox").style.display="block";renderAdmin()}
+  document.getElementById("dateNow").textContent=new Date().toLocaleDateString("hu-HU");
+  const isAdmin=code==="SOMAADMIN2025";
+  if(isAdmin){document.getElementById("adminBtn").style.display="block";document.getElementById("adminHint").style.display="inline-block";document.getElementById("adminBox").style.display="block";renderAdmin()}
   initData();render();calc();
 }
 function logout(){localStorage.removeItem("soma_user");location.reload()}
+function toggleAdmin(){const b=document.getElementById("adminBox");b.style.display=b.style.display==="none"?"block":"none"}
 function renderAdmin(){
   const tb=document.getElementById("adminTable");
   tb.innerHTML="<tr><th>Kód</th><th>Státusz</th><th>Művelet</th></tr>"+all().map(cd=>{
@@ -137,33 +143,43 @@ function toggle(c){if(disabled.includes(c)) disabled=disabled.filter(x=>x!==c); 
 function addCode(){const v=document.getElementById("newCode").value.trim().toUpperCase();if(!v)return; extra.push(v);localStorage.setItem("soma_extra",JSON.stringify(extra));document.getElementById("newCode").value="";renderAdmin();}
 
 let comps=[
- {type:"sold",addr:"Győr, Bajcsy-Zs. 4.",price:52.5,m2:65,cond:1,plot:0,floor:"1. emelet",lift:1,balc:0},
- {type:"sold",addr:"Győr, Szent I. 12.",price:48,m2:62,cond:0.92,plot:0,floor:"2. emelet",lift:0.95,balc:1.02},
- {type:"sold",addr:"Győr, Arany J. 8.",price:55.2,m2:70,cond:1.15,plot:0,floor:"Földszint",lift:1,balc:0},
- {type:"sold",addr:"Győr, Baross G. 22.",price:49.8,m2:64,cond:1,plot:0,floor:"3. emelet",lift:0.9,balc:0},
- {type:"sold",addr:"Győr, Király u. 15.",price:51,m2:66,cond:0.92,plot:0,floor:"1. emelet",lift:1,balc:1.02},
- {type:"active",addr:"Győr, Attila u. 9. (aktív)",price:56,m2:68,cond:1,plot:0,floor:"1. emelet",lift:1,balc:0},
- {type:"active",addr:"Győr, Széchenyi tér 5. (aktív)",price:53.5,m2:63,cond:1,plot:0,floor:"2. emelet",lift:1,balc:1.02},
- {type:"active",addr:"Győr, Mészáros L. 3. (aktív)",price:59,m2:72,cond:1.15,plot:0,floor:"2. emelet",lift:1,balc:1.05},
- {type:"active",addr:"Győr, Bécsi kapu 6. (aktív)",price:50.9,m2:64,cond:0.92,plot:0,floor:"Földszint",lift:1,balc:0},
- {type:"active",addr:"Győr, Hunyadi u. 12. (aktív)",price:54,m2:67,cond:1,plot:0,floor:"3. emelet",lift:0.9,balc:0},
+ {type:"sold",addr:"Győr, Bajcsy-Zs. 4.",price:52.5,m2:65,cond:1,floor:"1. emelet",lift:1,balc:0,plot:0},
+ {type:"sold",addr:"Győr, Szent I. 12.",price:48,m2:62,cond:0.92,floor:"2. emelet",lift:0.95,balc:1.02,plot:0},
+ {type:"sold",addr:"Győr, Arany J. 8.",price:55.2,m2:70,cond:1.15,floor:"Földszint",lift:1,balc:0,plot:0},
+ {type:"sold",addr:"Győr, Baross G. 22.",price:49.8,m2:64,cond:1,floor:"3. emelet",lift:0.9,balc:0,plot:0},
+ {type:"sold",addr:"Győr, Király u. 15.",price:51,m2:66,cond:0.92,floor:"1. emelet",lift:1,balc:1.02,plot:0},
+ {type:"active",addr:"Győr, Attila u. 9. (aktív)",price:56,m2:68,cond:1,floor:"1. emelet",lift:1,balc:0,plot:0},
+ {type:"active",addr:"Győr, Széchenyi tér 5. (aktív)",price:53.5,m2:63,cond:1,floor:"2. emelet",lift:1,balc:1.02,plot:0},
+ {type:"active",addr:"Győr, Mészáros L. 3. (aktív)",price:59,m2:72,cond:1.15,floor:"2. emelet",lift:1,balc:1.05,plot:0},
+ {type:"active",addr:"Győr, Bécsi kapu 6. (aktív)",price:50.9,m2:64,cond:0.92,floor:"Földszint",lift:1,balc:0,plot:0},
+ {type:"active",addr:"Győr, Hunyadi u. 12. (aktív)",price:54,m2:67,cond:1,floor:"3. emelet",lift:0.9,balc:0,plot:0},
 ];
 function initData(){}
+let openDetails={};
 function render(){
   const el=document.getElementById("comps");
   el.innerHTML=comps.map((c,i)=>{
     const isSold=c.type==="sold";
-    return `<div class="comp ${c.type}"><div class="comp-head"><span style="font-weight:700;font-size:13px">${i+1}. ${c.addr}</span><span class="tag ${c.type}">${isSold?"ELADOTT":"AKTÍV -5%"}</span></div>
-    <div style="display:grid;grid-template-columns:2fr .7fr .5fr .7fr;gap:6px">
+    const isOpen=openDetails[i];
+    return `<div class="comp ${c.type}"><div style="display:flex;justify-content:space-between;align-items:center"><span style="font-weight:700;font-size:13px">${i+1}. ${c.addr}</span><span class="tag ${c.type}">${isSold?"ELADOTT":"AKTÍV -5%"}</span></div>
+    <div style="display:grid;grid-template-columns:2fr .7fr .5fr .7fr;gap:6px;margin-top:8px">
       <div><span class="small">Cím</span><input class="inp" value="${c.addr}" oninput="comps[${i}].addr=this.value"></div>
       <div><span class="small">Ár M Ft</span><input type="number" class="inp" value="${c.price}" oninput="comps[${i}].price=parseFloat(this.value)||0;calc()"></div>
       <div><span class="small">m²</span><input type="number" class="inp" value="${c.m2}" oninput="comps[${i}].m2=parseFloat(this.value)||0;calc()"></div>
-      <div><span class="small">Állapot</span><select class="inp" onchange="comps[${i}].cond=parseFloat(this.value);calc()"><option value="1.15" ${c.cond==1.15?"selected":""}>Új</option><option value="1" ${c.cond==1?"selected":""}>Jó</option><option value="0.92" ${c.cond==0.92?"selected":""}>Közepes</option><option value="0.82" ${c.cond==0.82?"selected":""}>Felújítandó</option></select></div>
+      <div><span class="small">Állapot</span><select class="inp" onchange="comps[${i}].cond=parseFloat(this.value);calc()"><option value="1.15" ${c.cond==1.15?"selected":""}>Új</option><option value="1" ${c.cond==1?"selected":""}>Jó</option><option value="0.92" ${c.cond==0.92?"selected":""}>Közepes</option><option value="0.82" ${c.cond==0.82?"selected":""}>Felúj</option></select></div>
     </div>
-    <div id="kor-${i}" class="kor"></div>
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin-top:6px">
+      <div><span class="small">Emelet</span><select class="inp" onchange="comps[${i}].floor=this.value;calc()"><option ${c.floor=="Földszint"?"selected":""}>Földszint</option><option ${c.floor=="1. emelet"?"selected":""}>1. emelet</option><option ${c.floor=="2. emelet"?"selected":""}>2. emelet</option><option ${c.floor=="3. emelet"?"selected":""}>3. emelet</option><option ${c.floor=="4. emelet+"?"selected":""}>4. emelet+</option></select></div>
+      <div><span class="small">Lift</span><select class="inp" onchange="comps[${i}].lift=parseFloat(this.value);calc()"><option value="1" ${c.lift==1?"selected":""}>Van</option><option value="0.95" ${c.lift==0.95?"selected":""}>Nincs (1-2 em)</option><option value="0.9" ${c.lift==0.9?"selected":""}>Nincs (3+)</option></select></div>
+      <div><span class="small">Erkély</span><select class="inp" onchange="comps[${i}].balc=parseFloat(this.value);calc()"><option value="0" ${c.balc==0?"selected":""}>Nincs</option><option value="1.02" ${c.balc==1.02?"selected":""}>Erkély</option><option value="1.05" ${c.balc==1.05?"selected":""}>Terasz</option></select></div>
+    </div>
+    <div id="kor-${i}" style="margin-top:8px"></div>
+    <button class="detail-btn" onclick="toggleDetail(${i})">${isOpen?"▲ Kevesebb":"▼ Részletes korrekciós tábla"}</button>
+    <div id="detail-${i}" style="display:${isOpen?"block":"none"}"><table class="kor-table" id="detail-table-${i}"></table></div>
     </div>`
   }).join("");
 }
+function toggleDetail(i){openDetails[i]=!openDetails[i];render();calc();}
 function calc(){
   const area=parseFloat(document.getElementById("area")?.value)||68;
   const subjCond=parseFloat(document.getElementById("cond")?.value)||1;
@@ -173,20 +189,34 @@ function calc(){
   comps.forEach((c,i)=>{
     let m2price=(c.price*1000000)/c.m2;
     let adj=1;
-    let lines=[];
-    // condition
-    let condAdj=subjCond/c.cond; adj*=condAdj; lines.push(`Állapot: ${(condAdj>1?"+":"")}${Math.round((condAdj-1)*100)}%`);
-    // m2 diff
-    let diff=area-c.m2; let areaAdj=1+diff*0.003; adj*=areaAdj; if(Math.abs(diff)>2) lines.push(`Méret diff ${diff}m²: ${(areaAdj>1?"+":"")}${Math.round((areaAdj-1)*100)}%`);
-    // lift
-    if(c.lift) {let lAdj=subjLift/c.lift; adj*=lAdj; if(Math.abs(lAdj-1)>0.01) lines.push(`Lift: ${(lAdj>1?"+":"")}${Math.round((lAdj-1)*100)}%`)}
-    // active discount
-    if(c.type==="active"){ adj*=0.95; lines.push(`Aktív alku: -5%`)}
+    let rows=[];
+    let baseM2=m2price;
+    // 1 condition
+    let condAdj=subjCond/c.cond; rows.push({name:"Állapot",from:c.cond,to:subjCond,pct:(condAdj-1)*100,ft:baseM2*(condAdj-1)}); adj*=condAdj;
+    // 2 area
+    let diff=area-c.m2; let areaAdj=1+diff*0.003; if(Math.abs(diff)>0){rows.push({name:`Alapterület diff ${diff>0?"+":""}${diff} m²`,from:c.m2+"m²",to:area+"m²",pct:(areaAdj-1)*100,ft:baseM2*adj*(areaAdj-1)}); adj*=areaAdj;}
+    // 3 lift
+    let lAdj=subjLift/c.lift; if(Math.abs(lAdj-1)>0.005){rows.push({name:"Lift",from:c.lift==1?"Van":"Nincs",to:subjLift==1?"Van":"Nincs",pct:(lAdj-1)*100,ft:baseM2*adj*(lAdj-1)}); adj*=lAdj;}
+    // 4 balcony
+    let bAdj=(subjBalc==0?1:1)/(c.balc==0?1:c.balc); // invert because subject balc vs comp
+    // actually comp has balc factor, subject factor: if subject has balcony and comp not, positive. Simplify:
+    let subjB=1+subjBalc; let compB=1+c.balc; let balcAdj=subjB/compB; if(Math.abs(balcAdj-1)>0.005){rows.push({name:"Erkély/Terasz",from:c.balc==0?"Nincs":c.balc==1.02?"Erkély":"Terasz",to:subjBalc==0?"Nincs":subjBalc==1.02?"Erkély":"Terasz",pct:(balcAdj-1)*100,ft:baseM2*adj*(balcAdj-1)}); adj*=balcAdj;}
+    // 5 active discount
+    if(c.type==="active"){rows.push({name:"Aktív hirdetés alkupozíció",from:"Hirdetési ár",to:"Várható eladási",pct:-5,ft:baseM2*adj*(-0.05)}); adj*=0.95;}
     let corr=m2price*adj;
     let total=corr*area;
-    vals.push({corr,total,adj,lines});
-    const el=document.getElementById(`kor-${i}`);
-    if(el){el.innerHTML=`Korrigált: <b>${Math.round(corr).toLocaleString("hu-HU")} Ft/m²</b> → <b>${(total/1000000).toFixed(1)} M Ft</b> | ${lines.join(" • ")}`;}
+    vals.push({corr,total,adj,rows,baseM2});
+    const korEl=document.getElementById(`kor-${i}`);
+    if(korEl){korEl.innerHTML=`<span class="small">Korrigált: <b>${Math.round(corr).toLocaleString("hu-HU")} Ft/m²</b> → <b>${(total/1000000).toFixed(2)} M Ft</b> | Korrekciók: ${rows.map(r=>`${r.name} ${(r.pct>0?"+":"")}${r.pct.toFixed(1)}%`).join(" • ")}</span>`}
+    const detEl=document.getElementById(`detail-table-${i}`);
+    if(detEl){
+      let html=`<tr><th>Tényező</th><th>Összehasonlító</th><th>Tárgyi</th><th>Korrekció %</th><th>Ft/m² hatás</th></tr>`;
+      html+=`<tr><td>Kiinduló m² ár</td><td colspan="2">${Math.round(baseM2).toLocaleString("hu-HU")} Ft/m² (${c.price} M / ${c.m2} m²)</td><td>—</td><td>—</td></tr>`;
+      rows.forEach(r=>{html+=`<tr><td>${r.name}</td><td>${r.from}</td><td>${r.to}</td><td class="${r.pct>0?"plus":r.pct<0?"minus":""}">${r.pct>0?"+":""}${r.pct.toFixed(1)}%</td><td class="${r.ft>0?"plus":r.ft<0?"minus":""}">${r.ft>0?"+":""}${Math.round(r.ft).toLocaleString("hu-HU")} Ft</td></tr>`});
+      html+=`<tr class="sum-row"><td>Korrigált m² ár</td><td colspan="2"></td><td>${(adj>1?"+":"")}${Math.round((adj-1)*100*10)/10}% összesen</td><td><b>${Math.round(corr).toLocaleString("hu-HU")} Ft/m²</b></td></tr>`;
+      html+=`<tr class="sum-row"><td>Becsült érték</td><td colspan="4"><b>${(total/1000000).toFixed(2)} M Ft</b> = ${Math.round(corr).toLocaleString("hu-HU")} × ${area} m²</td></tr>`;
+      detEl.innerHTML=html;
+    }
   });
   if(vals.length){
     let totals=vals.map(v=>v.total);
@@ -195,18 +225,16 @@ function calc(){
     let sorted=[...totals].sort((a,b)=>a-b);
     let median=sorted[Math.floor(sorted.length/2)];
     let min=Math.min(...totals), max=Math.max(...totals);
-    document.getElementById("outPrice").textContent=(weighted/1000000).toFixed(1)+" M Ft ("+Math.round(weighted).toLocaleString("hu-HU")+" Ft)";
-    document.getElementById("outM2").textContent=Math.round(weighted/area).toLocaleString("hu-HU")+" Ft/m² • súlyozott átlag • medián: "+(median/1000000).toFixed(1)+" M Ft";
-    document.getElementById("outRange").textContent=`Hirdetési sáv: ${(weighted*0.95/1000000).toFixed(1)} – ${(weighted*1.05/1000000).toFixed(1)} M Ft | Min: ${(min/1000000).toFixed(1)} Max: ${(max/1000000).toFixed(1)} M Ft`;
-    document.getElementById("stats").innerHTML=`Átlag: ${(avg/1000000).toFixed(1)} M | Súlyozott: ${(weighted/1000000).toFixed(1)} M | 10 comp alapján • Eladott súly: 1.2 • Aktív súly: 0.8 (már -5% alkúval)`;
+    document.getElementById("outPrice").textContent=(weighted/1000000).toFixed(2)+" M Ft ("+Math.round(weighted).toLocaleString("hu-HU")+" Ft)";
+    document.getElementById("outM2").textContent=Math.round(weighted/area).toLocaleString("hu-HU")+" Ft/m² • súlyozott átlag • medián: "+(median/1000000).toFixed(2)+" M Ft";
+    document.getElementById("outRange").textContent=`Hirdetési sáv: ${(weighted*0.95/1000000).toFixed(2)} – ${(weighted*1.05/1000000).toFixed(2)} M Ft | Min: ${(min/1000000).toFixed(2)} Max: ${(max/1000000).toFixed(2)} M | Átlag: ${(avg/1000000).toFixed(2)} M`;
+    document.getElementById("stats").innerHTML=`10 comp • Eladott súly 1.2× • Aktív 0.8× (már -5% alkúval) • Részletes korrekció: katt a ▼ gombra`;
   }
 }
 (function(){
   const saved=localStorage.getItem("soma_user");
   if(saved && all().includes(saved) && !disabled.includes(saved)){openMain(saved)}
   document.getElementById("code").addEventListener("keydown",e=>{if(e.key==="Enter")doLogin()})
-  // FORCE SHOW SOMETHING IF JS OK
-  console.log("SOMA CMA FULL LOADED");
 })();
 </script>
 </body>
